@@ -1,8 +1,6 @@
-// import Filter from "components/Filter";
-// import ContactList from "components/ContactList";
-// import ContactForm from "components/ContactForm";
-// import { Typography } from "@mui/material";
-// import { Box } from "@mui/system";
+
+import { Typography } from "@mui/material";
+import { Box } from "@mui/system";
 import { nanoid } from "@reduxjs/toolkit";
 import ContactForm from "components/ContactForm";
 import ContactList from "components/ContactList";
@@ -10,13 +8,15 @@ import Filter from "components/Filter";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addContact, deleteContact, fetchContacts } from "redux/contacts.operations";
-import { filteredContacts, selectError, selectFilter } from "redux/contacts.selectors";
+import { filteredContacts, selectError, selectFilter, selectIsLoading } from "redux/contacts.selectors";
 import { FILTER } from "redux/contacts.slice";
+
 
 const Contacts = () => {
     const dispatch = useDispatch();
     const filtered = useSelector(selectFilter);
     const contacts = useSelector(filteredContacts);
+    const isLoading = useSelector(selectIsLoading);
     const error = useSelector(selectError)
 
     useEffect(() => {
@@ -46,19 +46,24 @@ const Contacts = () => {
 
     return (
         <>
-            <ContactForm onSubmit={handleAddContact} />
-            <h2>Contacts</h2>
-            <div>
-                <p>
-                    All contacts: {contacts.length}
-                </p>
-            </div>
-            <Filter value={filtered} onChange={handleChangeFilter} />
-            {error ? 'can`t load data, please check connection' :
-                <ContactList
-                    contacts={contacts}
-                    onRemoveContact={handleRemoveContact}
-                />}
+            <Box sx={{ mt: '2rem', display: 'flex', }}>
+                <Box sx={{
+                    width: '20rem',
+
+                }}>
+                    <Typography sx={{ ml: '2rem' }}>You have {isLoading ? 'loading' : contacts.length}
+                        {contacts.length === 1 ? ' contact' : ' contacts'}
+                    </Typography>
+                    <Filter value={filtered} onChange={handleChangeFilter} />
+                </Box>
+                {error ? 'can`t load data, please check connection' :
+                    <ContactList
+                        contacts={contacts}
+                        onRemoveContact={handleRemoveContact}
+                    />}
+                <ContactForm onSubmit={handleAddContact} />
+
+            </Box>
         </>
     );
 }

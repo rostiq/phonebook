@@ -1,15 +1,16 @@
+import { Box, Input } from '@mui/material';
 import React from 'react';
 
 
 const Filter = ({ value, onChange }) => (
-  <div>
-      <input
+  <Box sx={{ml:'2rem'}}>
+      <Input
         placeholder='search'
         type="name"
         value={value}
         onChange={onChange}
       />
-  </div>
+  </Box>
 );
 
 export default Filter;
