@@ -3,7 +3,7 @@ import React from 'react';
 
 
 const Filter = ({ value, onChange }) => (
-  <Box sx={{ml:'2rem'}}>
+  <Box sx={{ml:'2rem',}}>
       <Input
         placeholder='search'
         type="name"

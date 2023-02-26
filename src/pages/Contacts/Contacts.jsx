@@ -8,7 +8,7 @@ import Filter from "components/Filter";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addContact, deleteContact, fetchContacts } from "redux/contacts.operations";
-import { filteredContacts, selectError, selectFilter, selectIsLoading } from "redux/contacts.selectors";
+import { filteredContacts, selectFilter, selectIsLoading } from "redux/contacts.selectors";
 import { FILTER } from "redux/contacts.slice";
 
 
@@ -17,7 +17,6 @@ const Contacts = () => {
     const filtered = useSelector(selectFilter);
     const contacts = useSelector(filteredContacts);
     const isLoading = useSelector(selectIsLoading);
-    const error = useSelector(selectError)
 
     useEffect(() => {
         dispatch(fetchContacts());
@@ -46,23 +45,28 @@ const Contacts = () => {
 
     return (
         <>
-            <Box sx={{ mt: '2rem', display: 'flex', }}>
+            <Box sx={{ mt: '1rem', display: 'flex' }}>
                 <Box sx={{
-                    width: '20rem',
 
                 }}>
                     <Typography sx={{ ml: '2rem' }}>You have {isLoading ? 'loading' : contacts.length}
                         {contacts.length === 1 ? ' contact' : ' contacts'}
                     </Typography>
                     <Filter value={filtered} onChange={handleChangeFilter} />
+                    <Box>
+                        <ContactForm onSubmit={handleAddContact} />
+                    </Box>
                 </Box>
-                {error ? 'can`t load data, please check connection' :
-                    <ContactList
-                        contacts={contacts}
-                        onRemoveContact={handleRemoveContact}
-                    />}
-                <ContactForm onSubmit={handleAddContact} />
-
+                <Box>
+                    {contacts.length === 0 ?
+                        'you have no contacts yet'
+                        :
+                        <ContactList
+                            contacts={contacts}
+                            onRemoveContact={handleRemoveContact}
+                        />
+                    }
+                </Box>
             </Box>
         </>
     );

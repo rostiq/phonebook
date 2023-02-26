@@ -49,13 +49,13 @@ export const UserMenu = () => {
             </Typography>
             {token
                 ?
-            <Typography variant="p" component="div" sx={{ display: 'flex', gap: '1rem', alignItems:'center'}}>
+            <Box sx={{ display: 'flex', gap: '1rem', alignItems:'center'}}>
                   <Typography>
                     {profileName}
                 </Typography>
                 <Avatar sx={{ bgcolor: `#${randomColor}` }}>{firstLetter(profileName)}</Avatar>
                 <StyledLink onClick={handleLogOut} > Logout</StyledLink>
-            </Typography>
+            </Box>
                 :
                 <StyledLink to="login" >
                   Login

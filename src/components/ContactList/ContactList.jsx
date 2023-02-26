@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import { experimentalStyled as styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
 import { Button, Typography } from '@mui/material';
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -13,15 +12,13 @@ const Item = styled(Paper)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-
-
 }));
 
 
 const ContactList = ({ contacts, onRemoveContact }) => {
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <Grid >
+    <Box>
+      <Box sx={{display:'flex', flexWrap:'wrap'}}>
       {contacts.map(({ id, name, number }) => (
           <Item key={id}>
             <Typography>
@@ -30,9 +27,9 @@ const ContactList = ({ contacts, onRemoveContact }) => {
             <Button type="button" onClick={() => onRemoveContact(id)} >
               del
             </Button>
-            </Item>
+        </Item>
       ))}
-      </Grid>
+      </Box>
     </Box>
   )
 };

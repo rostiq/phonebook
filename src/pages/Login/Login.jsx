@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import { useDispatch } from 'react-redux';
 import { authLoginThunk } from 'redux/auth/auth.thunk';
 import Link from '@mui/material/Link';
+import { Typography } from '@mui/material';
 
 
 const initState = {
@@ -36,6 +37,9 @@ const Login = () => {
 
   return (
     <>
+      <Typography variant="h4" align="center" sx={{mt:'2rem'}}>
+This app can create, manage and store your contacts in cloud absolutely free!
+      </Typography>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '2rem', mt: '10vw', flexWrap: 'wrap' }}>
         <Box
           component="form" onSubmit={handleSubmit} width='360px'
