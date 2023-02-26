@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addContact, deleteContact, fetchContacts } from "redux/contacts.operations";
 import { filteredContacts, selectFilter, selectIsLoading } from "redux/contacts.selectors";
 import { FILTER } from "redux/contacts.slice";
+import Grid from '@mui/material/Grid';
 
 
 const Contacts = () => {
@@ -44,31 +45,27 @@ const Contacts = () => {
     };
 
     return (
-        <>
-            <Box sx={{ mt: '1rem', display: 'flex' }}>
-                <Box sx={{
-
-                }}>
-                    <Typography sx={{ ml: '2rem' }}>You have {isLoading ? 'loading' : contacts.length}
+        <Grid container spacing={2} style={{ height: '100vh', marginTop:'1rem' }}>
+            <Grid item xs={3} style={{ padding: '1rem' }}>
+                <Box>
+                    <Typography sx={{ ml: '1rem'}}>
+                        You have {isLoading ? 'loading' : contacts.length}
                         {contacts.length === 1 ? ' contact' : ' contacts'}
                     </Typography>
                     <Filter value={filtered} onChange={handleChangeFilter} />
-                    <Box>
+                    <Box sx={{mt:'1rem' }}>
                         <ContactForm onSubmit={handleAddContact} />
                     </Box>
                 </Box>
-                <Box>
-                    {contacts.length === 0 ?
-                        'you have no contacts yet'
-                        :
-                        <ContactList
-                            contacts={contacts}
-                            onRemoveContact={handleRemoveContact}
-                        />
-                    }
-                </Box>
-            </Box>
-        </>
+            </Grid>
+            <Grid item xs={9} style={{ padding: '1rem' }}>
+                {contacts.length === 0 ? (
+                    'you have no contacts yet'
+                ) : (
+                    <ContactList contacts={contacts} onRemoveContact={handleRemoveContact} />
+                )}
+            </Grid>
+        </Grid>
     );
 }
 
