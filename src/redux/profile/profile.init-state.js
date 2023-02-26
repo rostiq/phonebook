@@ -1,7 +1,7 @@
-import { STATUS } from '../constants';
+import { STATUS } from 'helpers/constants';
 
 export const profileInitState = {
-    data: null,
-    status: STATUS.idle,
-}
+  data: null,
+  status: STATUS.idle,
+};
 

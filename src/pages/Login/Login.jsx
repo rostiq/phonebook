@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import { useDispatch } from 'react-redux';
 import { authLoginThunk } from 'redux/auth/auth.thunk';
 import Link from '@mui/material/Link';
-import { useNavigate } from 'react-router-dom';
+
 
 const initState = {
   email: '',
@@ -15,7 +15,7 @@ const initState = {
 }
 const Login = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+
 
   const [values, setValues] = useState(initState);
 
@@ -28,7 +28,7 @@ const Login = () => {
     event.preventDefault();
     try {
       await dispatch(authLoginThunk(values)).unwrap();
-      navigate('/', { replace: true })
+
     } catch (error) {
       Notiflix.Notify.warning('Oops! It seems like your email or password is incorrect.', { timeout: 6000, },);
     }

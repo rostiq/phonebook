@@ -13,16 +13,13 @@ import { authReducer } from './auth/auth.slice';
 import { profileReducer } from './profile/profile.slice';
 import { authInitState } from './auth/auth.init-state';
 import { profileInitState } from './profile/profile.init-state';
+import { contactsInitState } from './contacts.init-state';
 
 export const initState = {
   auth: authInitState,
   profile: profileInitState,
-  contacts: {
-    items: [],
-    isLoading: true,
-    error: null
-  },
-  filter: ""
+  contacts: contactsInitState,
+  filter: ''
 }
 
 export const store = configureStore({
@@ -30,8 +27,8 @@ export const store = configureStore({
   reducer: { 
     auth: authReducer,
     profile: profileReducer,
-    // contacts: phonebookReducer, 
-    // filter: filterReducer
+    contacts: phonebookReducer, 
+    filter: filterReducer
    },
   devTools: true, 
   middleware: getDefaultMiddleware =>

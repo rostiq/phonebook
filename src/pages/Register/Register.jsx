@@ -30,7 +30,6 @@ const Register = () => {
         event.preventDefault();
 
         try {
-
             await publicApi.post('users/signup', values);
             Notiflix.Notify.success('you`re in, great!');
             await dispatch(authLoginThunk(values)).unwrap();

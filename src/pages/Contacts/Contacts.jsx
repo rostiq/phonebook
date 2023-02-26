@@ -1,47 +1,66 @@
 // import Filter from "components/Filter";
 // import ContactList from "components/ContactList";
 // import ContactForm from "components/ContactForm";
-import { Typography } from "@mui/material";
-import { Box } from "@mui/system";
+// import { Typography } from "@mui/material";
+// import { Box } from "@mui/system";
+import { nanoid } from "@reduxjs/toolkit";
 import ContactForm from "components/ContactForm";
 import ContactList from "components/ContactList";
 import Filter from "components/Filter";
-import { flexRow } from "components/GlobalStyles/GlobalStyles";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { selectAuthToken } from "redux/auth/auth.selector";
-
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addContact, deleteContact, fetchContacts } from "redux/contacts.operations";
+import { filteredContacts, selectError, selectFilter } from "redux/contacts.selectors";
+import { FILTER } from "redux/contacts.slice";
 
 const Contacts = () => {
-    const tokenData = useSelector(selectAuthToken);
-    const token = tokenData.token;
+    const dispatch = useDispatch();
+    const filtered = useSelector(selectFilter);
+    const contacts = useSelector(filteredContacts);
+    const error = useSelector(selectError)
+
+    useEffect(() => {
+        dispatch(fetchContacts());
+    }, [dispatch]);
+
+    const handleAddContact = (name, number) => {
+        if (contacts.find(contact => contact.name === name)) {
+            alert(`${name} is already in contacts.`);
+            return;
+        }
+        const newContact = {
+            id: nanoid(),
+            name,
+            number,
+        };
+        dispatch(addContact(newContact));
+    }
+
+    const handleRemoveContact = contactId => {
+        dispatch(deleteContact(contactId));
+    };
+
+    const handleChangeFilter = event => {
+        dispatch(FILTER(event.target.value));
+    };
 
     return (
         <>
-            {token ?
-                <Box>
-                    {/* <ContactList/> */}
-                    <ContactForm />
-                    <Typography>
-                        Contacts
-                    </Typography>
-                    <Filter />
-                </Box>
-                :
-                <Box sx={flexRow}>
-                    <Box sx={flexRow} >
-                        <Typography variant="h1" align="center">
-                            "Say goodbye to lost contacts - our app securely stores your phonebook in the cloud for free!"
-                        </Typography>
-                    </Box>
-                    <Box sx={flexRow} >
-                        <Typography variant="h5" align='center' mt='2rem' width='20vw'>
-                            Please <Link to='/login' >Log In</Link> or <Link to='/register' replace >Sign Up</Link> to manage contacts
-                        </Typography>
-                    </Box>
-                </Box>}
+            <ContactForm onSubmit={handleAddContact} />
+            <h2>Contacts</h2>
+            <div>
+                <p>
+                    All contacts: {contacts.length}
+                </p>
+            </div>
+            <Filter value={filtered} onChange={handleChangeFilter} />
+            {error ? 'can`t load data, please check connection' :
+                <ContactList
+                    contacts={contacts}
+                    onRemoveContact={handleRemoveContact}
+                />}
         </>
-    )
+    );
 }
 
 export default Contacts;

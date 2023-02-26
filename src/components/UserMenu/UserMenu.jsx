@@ -23,8 +23,7 @@ text-decoration: none;
 
 export const UserMenu = () => {
   const dispatch = useDispatch();
-  const tokenData = useSelector(selectAuthToken);
-  const token = tokenData.token;
+  const token = useSelector(selectAuthToken);
   const profile = useSelector(selectProfile);
   const profileName = profile ? profile.name : '';
 
@@ -48,7 +47,7 @@ export const UserMenu = () => {
                 Phonebook
               </StyledLink>
             </Typography>
-              {token
+            {token
                 ?
             <Typography variant="p" component="div" sx={{ display: 'flex', gap: '1rem', alignItems:'center'}}>
                   <Typography>
@@ -70,6 +69,3 @@ export const UserMenu = () => {
     </>
   );
 }
-
-//Typography props is 
-//  sx={{

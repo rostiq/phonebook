@@ -10,7 +10,7 @@ export const getProfileThunk = createAsyncThunk(
       return rejectWithValue();
     }
 
-    token.set(stateToken.token);
+    token.set(stateToken);
     const { data } = await privateApi.get('/users/current');
     return data;
   }
