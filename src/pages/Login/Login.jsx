@@ -29,16 +29,21 @@ const Login = () => {
     event.preventDefault();
     try {
       await dispatch(authLoginThunk(values)).unwrap();
-
     } catch (error) {
+      console.log("💅🏼 ~ error:", error)
       Notiflix.Notify.warning('Oops! It seems like your email or password is incorrect.', { timeout: 6000, },);
     }
   }
 
+  const handleExplore = () => {
+    setValues({ email: 'testing12345@testing.com', password: 'testing12345' });
+  }
+
+
   return (
     <>
-      <Typography variant="h4" align="center" sx={{mt:'2rem'}}>
-This app can create, manage and store your contacts in cloud absolutely free!
+      <Typography variant="h4" align="center" sx={{ mt: '2rem' }}>
+        This app can create, manage and store your contacts in cloud absolutely free!
       </Typography>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '2rem', mt: '10vw', flexWrap: 'wrap' }}>
         <Box
@@ -59,7 +64,8 @@ This app can create, manage and store your contacts in cloud absolutely free!
           <TextField autoComplete='on' value={values.email} name="email" onChange={handleChange} id="outlined-basic" label="Email" variant="outlined" />
           <TextField value={values.password} name="password" onChange={handleChange} id="outlined-basic" label="Password" variant="outlined" />
           <Button type='submit' variant="contained">Log In</Button>
-          <Link href="register" align='center'>create new account</Link>
+          <Link href="register" align='center'>Create new account</Link>
+          <Button type='submit' onClick={handleExplore}>Explore without account</Button>
         </Box>
       </Box>
     </>
