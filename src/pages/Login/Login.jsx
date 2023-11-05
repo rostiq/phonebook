@@ -43,7 +43,7 @@ const Login = () => {
   return (
     <>
       <Typography variant="h4" align="center" sx={{ mt: '2rem' }}>
-        This app can create, manage and store your contacts in cloud absolutely free!
+        This app can create, manage and store your contacts in cloud. 
       </Typography>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '2rem', mt: '10vw', flexWrap: 'wrap' }}>
         <Box
