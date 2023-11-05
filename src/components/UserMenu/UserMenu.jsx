@@ -50,7 +50,7 @@ export const UserMenu = () => {
             {token
                 ?
             <Box sx={{ display: 'flex', gap: '1rem', alignItems:'center'}}>
-                  <Typography>
+                <Typography className='profileName'>
                     {profileName}
                 </Typography>
                 <Avatar sx={{ bgcolor: `#${randomColor}` }}>{firstLetter(profileName)}</Avatar>
